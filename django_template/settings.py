@@ -40,6 +40,15 @@ if allowed_hosts_env:
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
 
+# CSRF Trusted Origins for Secure Forms on Vercel/HTTPS
+CSRF_TRUSTED_ORIGINS = []
+csrf_trusted_env = os.environ.get('CSRF_TRUSTED_ORIGINS')
+if csrf_trusted_env:
+    CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_trusted_env.split(',')]
+else:
+    CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.127.0.0.1', 'http://localhost', 'http://127.0.0.1']
+
+
 
 # Application definition
 
@@ -130,7 +139,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'statics',
 ]
