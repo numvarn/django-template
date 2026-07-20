@@ -14,6 +14,12 @@ import os
 from pathlib import Path
 import dj_database_url
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,3 +140,30 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Development Environment Enhancements
+if DEBUG:
+    # 1. Dev Apps
+    INSTALLED_APPS += [
+        'debug_toolbar',
+        'django_extensions',
+        'django_browser_reload',
+    ]
+
+    # 2. Dev Middlewares
+    # Insert DebugToolbarMiddleware right after SessionMiddleware
+    try:
+        idx = MIDDLEWARE.index('django.contrib.sessions.middleware.SessionMiddleware')
+        MIDDLEWARE.insert(idx + 1, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+    except ValueError:
+        MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+    # Append BrowserReloadMiddleware at the end
+    MIDDLEWARE.append('django_browser_reload.middleware.BrowserReloadMiddleware')
+
+    # 3. Debug Toolbar / Internal IPs
+    INTERNAL_IPS = [
+        '127.0.0.1',
+        'localhost',
+    ]
+

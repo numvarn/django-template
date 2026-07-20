@@ -1,3 +1,8 @@
 Django>=5
 dj-database-url
 psycopg2-binary
+django-debug-toolbar>=4.4.6
+django-extensions>=3.2.3
+django-browser-reload>=1.15.0
+python-dotenv>=1.0.1
+djlint>=1.36.4
