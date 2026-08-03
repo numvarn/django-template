@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from .models import Student
 
 
 # Create your views here.
@@ -8,6 +9,11 @@ def index(request):
     context = {
         "title": "My Home Page",
     }
+
+    # students = Student.objects.all()
+    # context['students'] = students
+
+    context["students"] = Student.objects.all()
 
     context["date"] = datetime.date.today()
     return render(request, "index.html", context)
