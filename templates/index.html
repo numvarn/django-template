@@ -12,16 +12,18 @@
                 <th scope="col">Prefix</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
+                <th scope="col">Major</th>
             </tr>
         </thead>
         <tbody>
             {% for student in students %}
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ student.st_id }}</td>
                     <td>{{ student.prefix_name }}</td>
                     <td>{{ student.fname }}</td>
                     <td>{{ student.lname }}</td>
+                    <td>{{ student.major.mj_name }}</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -10,9 +10,6 @@ def index(request):
         "title": "My Home Page",
     }
 
-    # students = Student.objects.all()
-    # context['students'] = students
-
     context["students"] = Student.objects.all()
 
     context["date"] = datetime.date.today()
