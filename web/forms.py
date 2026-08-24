@@ -7,22 +7,35 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = ["st_id", "prefix_name", "fname", "lname", "major"]
         labels = {
-            "st_id": "รหัสนักศึกษา (Student ID)",
-            "prefix_name": "คำนำหน้าชื่อ (Prefix)",
-            "fname": "ชื่อ (First Name)",
-            "lname": "นามสกุล (Last Name)",
-            "major": "สาขาวิชา (Major)",
+            "st_id": "รหัสนักศึกษา",
+            "prefix_name": "คำนำหน้าชื่อ",
+            "fname": "ชื่อ",
+            "lname": "นามสกุล",
+            "major": "สาขาวิชา",
         }
         widgets = {
             "st_id": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "เช่น 650123456789"}
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "เช่น 650123456789",
+                }
             ),
-            "prefix_name": forms.Select(attrs={"class": "form-select"}),
+            "prefix_name": forms.Select(
+                attrs={"class": "form-control form-control-lg form-select"}
+            ),
             "fname": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "กรอกชื่อจริง"}
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "กรอกชื่อจริง",
+                }
             ),
             "lname": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": "กรอกนามสกุล"}
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "กรอกนามสกุล",
+                }
             ),
-            "major": forms.Select(attrs={"class": "form-select"}),
+            "major": forms.Select(
+                attrs={"class": "form-control form-control-lg form-select"}
+            ),
         }
