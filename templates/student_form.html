@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mt-4 mb-3">
+        <h1 class="m-0">{{ title }}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 mt-1">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">รายชื่อนักศึกษา</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white py-3">
+                    <i class="fas fa-user-edit me-1"></i>
+                    {% if student %}แก้ไขข้อมูลนักศึกษา: {{ student.fname }} {{ student.lname }}{% else %}กรอกข้อมูลนักศึกษาใหม่{% endif %}
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <p class="mb-0">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="{{ form.st_id.id_for_label }}" class="form-label fw-bold">
+                                {{ form.st_id.label }} <span class="text-danger">*</span>
+                            </label>
+                            {{ form.st_id }}
+                            {% if form.st_id.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.st_id.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.prefix_name.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.prefix_name.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.prefix_name }}
+                                {% if form.prefix_name.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.prefix_name.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.fname.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.fname.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.fname }}
+                                {% if form.fname.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.fname.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.lname.id_for_label }}" class="form-label fw-bold">
+                                    {{ form.lname.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.lname }}
+                                {% if form.lname.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ form.lname.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="{{ form.major.id_for_label }}" class="form-label fw-bold">
+                                {{ form.major.label }} <span class="text-danger">*</span>
+                            </label>
+                            {{ form.major }}
+                            {% if form.major.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.major.errors|striptags }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% if student %}{% url 'student_detail' pk=student.pk %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i> ยกเลิก
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-1"></i> บันทึกข้อมูล
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

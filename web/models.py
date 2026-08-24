@@ -33,7 +33,7 @@ class Student(models.Model):
         return self.fname + " " + self.lname
 
     def get_absolute_url(self):
-        return reverse("Student_detail", kwargs={"pk": self.pk})
+        return reverse("student_detail", kwargs={"pk": self.pk})
 
 
 class StudentAdmin(admin.ModelAdmin):
